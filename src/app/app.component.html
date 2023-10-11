@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="form-group">
+      <br>
+      <br>
+      <input 
+        class="form-control" 
+        name="file" 
+        type="file" 
+        (change)="onFileChange($event)"
+        >
+      <br>
+    </div>
+    <button type="button" class="btn btn-warning" (click)="onUpload()">Subir</button>
+</div>
+<br>
+<hr>
+<div class="container">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Url del archivo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of file_paths; let i = index">
+        <td>{{ i}}</td>
+        <td>{{ item }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <button class="btn btn-primary" (click)="findPaths()">Traer archivos</button> 
+</div>
