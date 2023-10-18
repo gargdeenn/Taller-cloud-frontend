@@ -15,7 +15,7 @@ import {
 })
 export class AppComponent implements OnInit{
   file: File | null = null;
-  public file_paths = [];
+  public file_paths: any;
   constructor(private http: HttpClient){
 
   }
@@ -31,8 +31,8 @@ export class AppComponent implements OnInit{
   }
 
   onUpload(){
-    const local = 'http://localhost/users/uploadfile/';
-    const ec2_i1 = 'http://18.219.240.57/users/uploadfile/';
+    const local = 'http://localhost/files/uploadfile/';
+    const ec2_i1 = 'http://Alb-aplication-1951690844.us-east-2.elb.amazonaws.com/files/uploadfile/';
     const formData = new FormData();
     if (this.file !== null) {
       formData.append('file', this.file);
@@ -47,10 +47,14 @@ export class AppComponent implements OnInit{
   }
 
   findPaths (){
-    const local = 'http://localhost/users/findpaths/';
-    const ec2_i1 = 'http://18.219.240.57/users/findpaths/';
+    const listaDeFilePaths: string[] = [];
+    const local = 'http://localhost/files/findpaths/';
+    const ec2_i1 = 'http://Alb-aplication-1951690844.us-east-2.elb.amazonaws.com/files/findpaths/';
     this.http.get(ec2_i1).subscribe((data:any) => {
-      this.file_paths = data
+      for (const objeto of data) {
+        listaDeFilePaths.push(objeto.file_path);
+      }
+      this.file_paths = listaDeFilePaths;
       console.log(this.file_paths);
     })
   }
